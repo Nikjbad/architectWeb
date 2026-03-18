@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+<meta name="description" content="SG Architects - Award-winning architecture and design studio specializing in residential, commercial, and urban design solutions."/>
+<meta name="theme-color" content="#000000"/>
+<title>SG Architects | Professional Architecture & Design Studio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{
+  --primary:#000000;
+  --secondary:#1a1a1a;
+  --dark-bg:#0f0f0f;
+  --light-bg:#ffffff;
+  --gray-100:#f5f5f5;
+  --gray-200:#efefef;
+  --gray-400:#a0a0a0;
+  --gray-600:#666666;
+  --silver:#d4d4d4;
+  --accent:#2d3748;
+  --success:#10b981;
+  --serif:'Merriweather',Georgia,serif;
+  --sans:'Poppins',sans-serif;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --nav-h:65px;
+  --radius:6px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{font-family:var(--sans);background:var(--light-bg);color:var(--primary);overflow-x:hidden;line-height:1.6}
+img{display:block;max-width:100%;height:auto}
+a{text-decoration:none;color:inherit;transition:color .3s}
+button,input,textarea,select{font-family:inherit;border:none;background:none}
+input,textarea,select{transition:border-color .3s,box-shadow .3s}
+
+/* CURSOR */
+#cur{position:fixed;width:8px;height:8px;background:var(--primary);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:multiply;top:0;left:0;display:none}
+#cur-ring{position:fixed;width:40px;height:40px;border:1.5px solid var(--primary);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;top:0;left:0;display:none}
+
+@media(min-width:1024px){
+  #cur,#cur-ring{display:block}
+}
+
+/* NAV */
+#nav{position:fixed;top:0;left:0;width:100%;z-index:500;background:var(--light-bg);border-bottom:1px solid var(--gray-200);transition:box-shadow .3s;padding:0}
+#nav.scroll{box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.nav-in{max-width:1500px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:var(--nav-h);padding:0 clamp(1rem,4vw,3rem)}
+.logo{font-family:var(--serif);font-size:clamp(1.2rem,3vw,1.6rem);font-weight:700;color:var(--primary);letter-spacing:-.5px;text-transform:uppercase}
+.logo-sub{font-size:.5em;color:var(--gray-600);display:block}
+.nav-links{display:flex;gap:clamp(1rem,2vw,3rem);align-items:center;flex-wrap:nowrap}
+.nav-links a{font-size:.8rem;letter-spacing:.5px;text-transform:uppercase;color:var(--gray-600);position:relative;transition:color .3s;font-weight:500;white-space:nowrap}
+.nav-links a::after{content:'';position:absolute;bottom:-8px;left:0;width:0;height:2px;background:var(--primary);transition:width .35s var(--ease)}
+.nav-links a:hover{color:var(--primary)}.nav-links a:hover::after{width:100%}
+.nav-cta{background:var(--primary);color:var(--light-bg);padding:.6rem 1.8rem;border-radius:var(--radius);font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:2px solid var(--primary);transition:all .3s;cursor:pointer;white-space:nowrap}
+.nav-cta:hover{background:var(--light-bg);color:var(--primary)}
+.ham{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:8px;cursor:pointer;width:40px;height:40px;align-items:center;justify-content:center}
+.ham span{display:block;width:24px;height:2px;background:var(--primary);transition:.35s;border-radius:1px}
+.ham.open span:nth-child(1){transform:rotate(45deg) translate(7px,7px)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:nth-child(3){transform:rotate(-45deg) translate(7px,-7px)}
+
+/* DRAWER */
+#drawer{position:fixed;top:0;right:-100%;width:min(300px,90vw);height:100vh;background:var(--light-bg);border-left:1px solid var(--gray-200);z-index:490;padding:calc(var(--nav-h) + 1.5rem) 1.5rem;display:flex;flex-direction:column;gap:1.5rem;transition:right .4s var(--ease);overflow-y:auto;box-shadow:-5px 0 20px rgba(0,0,0,.1)}
+#drawer.open{right:0}
+#drawer a{font-size:.85rem;letter-spacing:.4px;text-transform:uppercase;color:var(--gray-600);transition:all .3s;display:block;padding:.6rem 0;font-weight:500;border-bottom:1px solid var(--gray-200)}
+#drawer a:hover{color:var(--primary);padding-left:.5rem}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:489;opacity:0;pointer-events:none;transition:opacity .4s}
+#ov.show{opacity:1;pointer-events:all}
+
+@media(min-width:768px){
+  .nav-links{display:flex !important}
+  .ham{display:none !important}
+}
+
+@media(max-width:767px){
+  .nav-links{display:none}
+  .ham{display:flex}
+}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:600px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding-top:var(--nav-h);background:linear-gradient(135deg,var(--light-bg) 0%,var(--gray-100) 100%)}
+#hc{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.hglow{position:absolute;width:min(500px,90vw);height:min(500px,90vw);background:radial-gradient(circle,rgba(0,0,0,.05) 0%,transparent 70%);border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none}
+.hero-wrap{position:relative;z-index:3;padding:0 clamp(1.5rem,5vw,3rem);width:100%;max-width:1000px}
+.badge{display:inline-flex;align-items:center;gap:.8rem;border:1.5px solid var(--primary);padding:.6rem 1.6rem;border-radius:50px;font-size:.65rem;letter-spacing:.6px;text-transform:uppercase;color:var(--primary);margin-bottom:clamp(1.5rem,5vw,2.5rem);opacity:0;animation:slideDown .8s .2s var(--ease) forwards;font-weight:600}
+.badge i{font-size:1rem}
+.h1{font-family:var(--serif);font-size:clamp(2rem,8vw,5rem);font-weight:700;line-height:1.2;letter-spacing:-1px;color:var(--primary);opacity:0;animation:fadeUp .9s .4s var(--ease) forwards;margin-bottom:.5rem}
+.h1-sub{display:block;font-size:.5em;color:var(--gray-600);font-weight:400;font-style:italic;margin-top:.3em}
+.hsub{font-size:clamp(.85rem,2vw,1.05rem);color:var(--gray-600);letter-spacing:.3px;margin-top:clamp(1rem,4vw,2rem);opacity:0;animation:fadeUp .9s .62s var(--ease) forwards;line-height:1.8;max-width:700px;margin-left:auto;margin-right:auto}
+.hbtns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:clamp(2rem,5vw,3rem);opacity:0;animation:fadeUp .9s .82s var(--ease) forwards}
+.btng{background:var(--primary);color:var(--light-bg);padding:.75rem 2rem;border-radius:var(--radius);font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;border:2px solid var(--primary);display:inline-block;transition:all .3s;white-space:nowrap;cursor:pointer}
+.btng:hover{background:var(--light-bg);color:var(--primary);transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.btno{background:transparent;color:var(--primary);padding:.73rem 2rem;border-radius:var(--radius);font-size:.75rem;letter-spacing:.5px;text-transform:uppercase;border:2px solid var(--primary);display:inline-block;transition:all .3s;white-space:nowrap;cursor:pointer;font-weight:600}
+.btno:hover{background:var(--primary);color:var(--light-bg);transform:translateY(-2px);box-shadow:0 10px 25px rgba(0,0,0,.15)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:3;display:flex;flex-direction:column;align-items:center;gap:.8rem;opacity:0;animation:fadeIn 1s 1.5s forwards}
+.scroll-hint span{font-size:.65rem;letter-spacing:.6em;text-transform:uppercase;color:var(--gray-600);font-weight:600}
+.sline{width:2px;height:35px;background:var(--primary);animation:scroll-pulse 2s infinite}
+
+/* SECTIONS */
+.sec{position:relative;z-index:10;padding:clamp(4rem,10vw,7rem) clamp(1.5rem,4vw,3rem)}
+.wrap{max-width:1400px;margin:0 auto;width:100%}
+.sec-label{font-size:.7rem;letter-spacing:.6em;text-transform:uppercase;color:var(--gray-600);margin-bottom:.8rem;font-weight:700;display:flex;align-items:center;gap:.8rem}
+.sec-label::before{content:'';width:24px;height:1px;background:var(--primary)}
+.sec-title{font-family:var(--serif);font-size:clamp(1.8rem,5vw,3.5rem);font-weight:700;line-height:1.2;color:var(--primary);margin-bottom:clamp(1.5rem,3vw,2.5rem);letter-spacing:-.5px}
+.sec-subtitle{font-size:clamp(.9rem,2vw,1.05rem);color:var(--gray-600);line-height:1.8;max-width:700px;margin-bottom:2rem}
+.divbar{width:40px;height:2px;background:var(--primary);margin:1.5rem 0}
+
+.r{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.r.d1{transition-delay:.1s}.r.d2{transition-delay:.2s}.r.d3{transition-delay:.3s}
+.r.on{opacity:1;transform:none}
+
+/* ABOUT */
+#about{background:var(--light-bg)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,8vw,5rem);align-items:start}
+.about-img{position:relative}
+.about-img img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:var(--radius);box-shadow:0 15px 40px rgba(0,0,0,.15)}
+.stats-badge{position:absolute;bottom:clamp(-20px,-5vw,-40px);right:clamp(-15px,-3vw,-25px);background:var(--primary);color:var(--light-bg);padding:clamp(1.5rem,4vw,2rem);border-radius:var(--radius);text-align:center;min-width:130px;box-shadow:0 15px 35px rgba(0,0,0,.2)}
+.stats-badge .n{font-family:var(--serif);font-size:clamp(2rem,5vw,2.8rem);font-weight:700;line-height:1}
+.stats-badge .l{font-size:.6rem;letter-spacing:.4em;text-transform:uppercase;margin-top:.5rem;line-height:1.5;font-weight:600}
+.about-text h3{font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.8rem);color:var(--primary);margin:1.5rem 0 .8rem;font-weight:700}
+.about-text p{font-size:clamp(.85rem,1.5vw,.95rem);line-height:1.9;color:var(--gray-600);margin-bottom:1.5rem}
+.about-text ul{list-style:none;margin:2rem 0;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.about-text li{font-size:.85rem;color:var(--primary);padding-left:1.8rem;position:relative;font-weight:500}
+.about-text li::before{content:'✓';position:absolute;left:0;color:var(--success);font-weight:bold;font-size:1.2em}
+
+/* EXPERTISE */
+#expertise{background:var(--gray-100)}
+.expertise-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.exp-card{background:var(--light-bg);padding:clamp(2rem,4vw,2.5rem);border-radius:var(--radius);border-left:4px solid var(--primary);transition:all .35s var(--ease);cursor:pointer}
+.exp-card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(0,0,0,.1)}
+.exp-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.8;transition:transform .3s}
+.exp-card:hover .exp-icon{transform:scale(1.1)}
+.exp-card h3{font-family:var(--serif);font-size:clamp(1.1rem,2.5vw,1.3rem);color:var(--primary);margin-bottom:.8rem;font-weight:700}
+.exp-card p{font-size:.85rem;line-height:1.8;color:var(--gray-600)}
+
+/* SERVICES */
+#services{background:var(--light-bg)}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.service-card{background:var(--gray-100);padding:clamp(2rem,4vw,2.5rem);border-radius:var(--radius);border-top:4px solid var(--primary);transition:all .35s var(--ease);position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;right:0;width:80px;height:80px;background:rgba(0,0,0,.02);border-radius:0 0 0 80px;pointer-events:none}
+.service-card:hover{transform:translateY(-8px);background:var(--light-bg);box-shadow:0 20px 40px rgba(0,0,0,.08)}
+.service-num{font-family:var(--serif);font-size:3rem;font-weight:700;color:rgba(0,0,0,.05);position:absolute;top:-10px;right:10px;line-height:1}
+.service-icon{font-size:2.2rem;margin-bottom:.8rem;opacity:.8;transition:transform .3s}
+.service-card:hover .service-icon{transform:scale(1.2)}
+.service-title{font-size:clamp(1rem,2vw,1.2rem);font-weight:700;color:var(--primary);margin:1rem 0 .8rem;position:relative;z-index:1}
+.service-desc{font-size:.85rem;line-height:1.8;color:var(--gray-600);position:relative;z-index:1;margin-bottom:1rem}
+
+/* PORTFOLIO */
+#portfolio{background:var(--gray-100)}
+.portfolio-intro{max-width:800px;margin-bottom:3rem}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(1.2rem,2vw,1.8rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.pi{position:relative;overflow:hidden;border-radius:var(--radius);cursor:pointer;background:#000;aspect-ratio:3/2;box-shadow:0 5px 15px rgba(0,0,0,.1);transition:all .35s var(--ease)}
+.pi:first-child{grid-column:span 2}
+@media(max-width:768px){
+  .pi:first-child{grid-column:span 1}
+}
+.pi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s var(--ease);filter:brightness(.85)}
+.pi:hover img{transform:scale(1.08);filter:brightness(1)}
+.pov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.95) 0%,rgba(0,0,0,.4) 50%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(1.5rem,4vw,2rem);transform:translateY(20px);opacity:0;transition:all .4s var(--ease)}
+.pi:hover .pov{transform:translateY(0);opacity:1}
+.ptag{font-size:.65rem;letter-spacing:.5em;text-transform:uppercase;color:#a0a0a0;margin-bottom:.6rem;font-weight:600}
+.pname{font-family:var(--serif);font-size:clamp(1.1rem,2vw,1.4rem);font-weight:700;color:var(--light-bg);margin-bottom:.5rem}
+.pdesc{font-size:.8rem;color:#c0c0c0;line-height:1.6}
+
+/* AWARDS */
+#awards{background:var(--light-bg)}
+.awards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(1.5rem,3vw,2rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.award-item{background:var(--gray-100);padding:clamp(1.8rem,3vw,2.2rem);text-align:center;border-radius:var(--radius);border-top:3px solid var(--primary);transition:all .3s;position:relative}
+.award-item:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,.1)}
+.award-icon{font-size:2.5rem;margin-bottom:.8rem}
+.award-year{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:var(--primary);margin-bottom:.4rem}
+.award-title{font-size:.8rem;color:var(--gray-600);line-height:1.6;font-weight:500}
+
+/* PROCESS */
+#process{background:var(--gray-100)}
+.process-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:clamp(2.5rem,5vw,4rem)}
+.process-step{position:relative;padding:2rem 1.5rem;background:var(--light-bg);border-radius:var(--radius);text-align:center;transition:all .3s}
+.process-step:hover{transform:translateY(-5px);box-shadow:0 15px 30px rgba(0,0,0,.1)}
+.step-num{width:70px;height:70px;border:2px solid var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;background:var(--light-bg);font-family:var(--serif);font-size:1.8rem;font-weight:700;color:var(--primary);transition:all .3s;position:relative;z-index:1}
+.process-step:hover .step-num{background:var(--primary);color:var(--light-bg);transform:scale(1.1)}
+.step-name{font-size:.95rem;font-weight:600;color:var(--primary);margin-bottom:.6rem}
+.step-desc{font-size:.8rem;color:var(--gray-600);line-height:1.7}
+
+/* STATS */
+#stats{background:var(--light-bg)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.stat-card{background:var(--gray-100);padding:clamp(2rem,4vw,2.5rem);text-align:center;border-radius:var(--radius);border-top:4px solid var(--primary);transition:all .3s}
+.stat-card:hover{transform:translateY(-5px);background:var(--light-bg);box-shadow:0 15px 30px rgba(0,0,0,.1)}
+.stat-num{font-family:var(--serif);font-size:clamp(2.2rem,6vw,3.5rem);font-weight:700;color:var(--primary);display:block;margin-bottom:.6rem}
+.stat-label{font-size:.75rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gray-600);font-weight:600}
+
+/* TESTIMONIALS */
+#testimonials{background:var(--gray-100)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.testimonial-card{background:var(--light-bg);padding:clamp(2rem,4vw,2.5rem);border-radius:var(--radius);border-left:4px solid var(--primary);transition:all .35s var(--ease);position:relative}
+.testimonial-card:hover{transform:translateY(-5px);box-shadow:0 15px 35px rgba(0,0,0,.1)}
+.stars{color:var(--primary);font-size:.85rem;margin-bottom:.8rem;display:block;letter-spacing:.2em}
+.testimonial-text{font-size:.85rem;line-height:1.8;color:var(--gray-600);margin-bottom:1.2rem;font-style:italic}
+.testimonial-author{font-size:.9rem;font-weight:600;color:var(--primary);margin-bottom:.2rem}
+.testimonial-role{font-size:.75rem;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3em;font-weight:500}
+
+/* FAQ */
+#faq{background:var(--light-bg)}
+.faq-intro{max-width:800px;margin-bottom:2.5rem}
+.faq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(1.5rem,3vw,2.5rem);margin-top:clamp(2.5rem,5vw,4rem)}
+.faq-item{background:var(--gray-100);border-radius:var(--radius);overflow:hidden;transition:all .3s}
+.faq-question{padding:clamp(1.5rem,3vw,2rem);background:var(--gray-100);cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:all .3s;font-weight:600;color:var(--primary);font-size:.9rem}
+.faq-question:hover{background:var(--light-bg)}
+.faq-toggle{font-size:.8rem;transition:transform .3s;width:24px;text-align:center}
+.faq-answer{max-height:0;overflow:hidden;transition:max-height .3s;background:var(--gray-100)}
+.faq-answer p{font-size:.8rem;color:var(--gray-600);line-height:1.8;padding:0 clamp(1.5rem,3vw,2rem) clamp(1rem,2vw,1.5rem)}
+.faq-item.open .faq-question{background:var(--light-bg);color:var(--primary)}
+.faq-item.open .faq-answer{max-height:400px}
+.faq-item.open .faq-toggle{transform:rotate(180deg)}
+
+/* CONTACT */
+#contact{background:var(--gray-100)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,8vw,4rem);align-items:start}
+.contact-info p{font-size:.9rem;line-height:1.9;color:var(--gray-600);margin-bottom:clamp(1.5rem,3vw,2.5rem)}
+.contact-methods{display:grid;gap:clamp(1.5rem,3vw,2rem)}
+.contact-method{display:flex;gap:1.5rem;align-items:flex-start;padding:clamp(1.5rem,3vw,2rem);background:var(--light-bg);border-radius:var(--radius);transition:all .3s;border-left:3px solid var(--primary)}
+.contact-method:hover{box-shadow:0 10px 25px rgba(0,0,0,.08)}
+.contact-icon{width:50px;height:50px;border:2px solid var(--primary);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.contact-text strong{display:block;color:var(--primary);font-size:.9rem;font-weight:600;margin-bottom:.2rem}
+.contact-text span{font-size:.8rem;color:var(--gray-600);line-height:1.6}
+.contact-form{background:var(--light-bg);padding:clamp(2rem,4vw,3rem);border-radius:var(--radius);border-top:4px solid var(--primary)}
+.form-group{margin-bottom:clamp(1.2rem,2vw,1.8rem)}
+.form-label{display:block;font-size:.75rem;text-transform:uppercase;letter-spacing:.5em;color:var(--primary);margin-bottom:.8rem;font-weight:600}
+.form-input{width:100%;padding:.9rem 1.1rem;background:var(--gray-100);border:1px solid var(--silver);border-radius:var(--radius);font-size:.9rem;color:var(--primary);transition:all .3s}
+.form-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(0,0,0,.05);background:var(--light-bg)}
+.form-input::placeholder{color:var(--gray-400)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){
+  .form-row{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+
+/* FOOTER */
+footer{background:var(--dark-bg);color:var(--light-bg)}
+.footer-content{padding:clamp(3rem,6vw,5rem) clamp(1.5rem,4vw,3rem);display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(2rem,4vw,3.5rem);max-width:1400px;margin:0 auto}
+.footer-col h3{font-family:var(--serif);font-size:clamp(1rem,2vw,1.2rem);font-weight:700;margin-bottom:1.5rem;color:var(--light-bg)}
+.footer-col p{font-size:.85rem;line-height:1.8;color:rgba(255,255,255,.7);margin-bottom:1rem}
+.footer-col a{display:block;font-size:.85rem;color:rgba(255,255,255,.7);margin-bottom:.8rem;transition:color .3s}
+.footer-col a:hover{color:var(--light-bg)}
+.footer-col i{margin-right:.5rem;width:20px;text-align:center}
+.footer-bottom{background:rgba(0,0,0,.5);padding:clamp(1.5rem,3vw,2.5rem);text-align:center;border-top:1px solid rgba(255,255,255,.1)}
+.footer-bottom p{font-size:.75rem;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.3em}
+
+/* WHATSAPP FAB */
+.wafab{position:fixed;bottom:clamp(1.5rem,4vw,2.5rem);right:clamp(1.5rem,4vw,2.5rem);z-index:400;width:60px;height:60px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(37,211,102,.35);transition:all .3s;cursor:pointer;animation:float 3s ease-in-out infinite}
+.wafab:hover{transform:scale(1.15);box-shadow:0 12px 35px rgba(37,211,102,.5)}
+.wafab i{font-size:1.8rem;color:#fff}
+
+/* KEYFRAMES */
+@keyframes fadeUp{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:none}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-15px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scroll-pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ANIMATIONS */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:2.5rem}
+  .about-img{margin-bottom:2rem}
+  .contact-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:600px){
+  .sec{padding:clamp(3rem,8vw,4rem) clamp(1rem,3vw,1.5rem)}
+  .sec-title{font-size:clamp(1.5rem,4vw,2rem)}
+  .sec-subtitle{font-size:.85rem}
+  .hbtns{flex-direction:column;width:100%;max-width:320px;margin-left:auto;margin-right:auto}
+  .btng,.btno{width:100%;padding:.7rem 1.5rem}
+  .expertise-grid,.services-grid,.awards-grid,.testimonials-grid{grid-template-columns:1fr}
+  .services-grid,.process-grid,.stats-grid{grid-template-columns:repeat(auto-fit,minmax(1fr,1fr))}
+  .footer-content{grid-template-columns:1fr}
+}
+
+@media(max-width:400px){
+  .h1{font-size:clamp(1.5rem,5vw,2.2rem)}
+  :root{--nav-h:60px}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#" class="logo">SG ARCHITECTS<span class="logo-sub">Studio</span></a>
+    <div class="nav-links">
+      <a href="about.html"fas fa-briefcase"></i> About</a>
+      <a href="#expertise"><i class="fas fa-star"></i> Expertise</a>
+      <a href="services.html"><i class="fas fa-cube"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-images"></i> Portfolio</a>
+      <a href="#process"><i class="fas fa-sitemap"></i> Process</a>
+      <a href="#awards"><i class="fas fa-award"></i> Awards</a>
+      <a href="#testimonials"><i class="fas fa-comment"></i> Reviews</a>
+      <a href="contact.html" class="nav-cta"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <button class="ham" id="ham" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="ov"></div>
+<div id="drawer">
+  <a href="about.html" class="dl"><i class="fas fa-briefcase"></i> About</a>
+  <a href="#expertise" class="dl"><i class="fas fa-star"></i> Expertise</a>
+  <a href="services.html" class="dl"><i class="fas fa-cube"></i> Services</a>
+  <a href="portfolio.html" class="dl"><i class="fas fa-images"></i> Portfolio</a>
+  <a href="#process" class="dl"><i class="fas fa-sitemap"></i> Process</a>
+  <a href="#awards" class="dl"><i class="fas fa-award"></i> Awards</a>
+  <a href="#testimonials" class="dl"><i class="fas fa-comment"></i> Reviews</a>
+  <a href="contact.html" class="dl"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hc"></canvas>
+  <div class="hglow"></div>
+  <div class="hero-wrap">
+    <div class="badge"><i class="fas fa-certificate"></i> Premium Architecture Studio Since 2009</div>
+    <h1 class="h1">Timeless Design<span class="h1-sub">Transforming Spaces & Lives</span></h1>
+    <p class="hsub">Award-winning architectural firm specializing in residential, commercial, and urban design. We create meaningful spaces that inspire, endure, and elevate the human experience through innovative design and meticulous craftsmanship.</p>
+    <div class="hbtns">
+      <a href="#portfolio" class="btng"><i class="fas fa-eye"></i> View Our Work</a>
+      <a href="#contact" class="btno"><i class="fas fa-arrow-right"></i> Start a Project</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll to Explore</span>
+    <div class="sline"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-img r">
+        <img src="https://assets.architecturaldesigns.com/plan_assets/344711395/original/81776AB_Photo-01_1668805041.jpg" alt="SG Architects Studio">
+        <div class="stats-badge">
+          <div class="n">15+</div>
+          <div class="l">Years of<br>Excellence</div>
+        </div>
+      </div>
+
+      <div class="r d1">
+        <p class="sec-label"><i class="fas fa-book"></i> Our Story</p>
+        <h2 class="sec-title">Award-Winning Architecture <em>For Modern Living</em></h2>
+        <div class="divbar"></div>
+        
+        <div class="about-text">
+          <h3><i class="fas fa-lightbulb"></i> Designing with Purpose</h3>
+          <p>SG Architects is a multidisciplinary design firm founded by Architect Sparsh Gupta in 2009. We are dedicated to transforming architectural visions into extraordinary experiences. From intimate residential projects to landmark commercial developments, every project embodies our commitment to excellence, sustainability, and innovation.</p>
+          
+          <h3><i class="fas fa-compass"></i> Our Philosophy</h3>
+          <p>We believe architecture is a dialogue between structure and soul—a conversation that should inspire for generations to come. Each project is approached as an opportunity to create spaces that not only meet functional requirements but also elevate the quality of life.</p>
+          
+          <h3><i class="fas fa-heart"></i> Our Values</h3>
+          <ul>
+            <li>Design Excellence & Innovation</li>
+            <li>Sustainable & Responsible Building</li>
+            <li>Client-Centric Approach</li>
+            <li>Attention to Detail</li>
+            <li>Timely Delivery & Quality</li>
+            <li>Long-term Client Relationships</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="sec" id="expertise">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-gem"></i> Our Specialization</p>
+    <h2 class="sec-title">Areas of <em>Expertise</em></h2>
+    <p class="sec-subtitle">We specialize in creating transformative architectural solutions across multiple disciplines, each backed by years of professional excellence and innovation.</p>
+    
+    <div class="expertise-grid">
+      <div class="exp-card r">
+        <div class="exp-icon"><i class="fas fa-home"></i></div>
+        <h3>Residential Design</h3>
+        <p>Luxury villas, apartments, and residential complexes designed around how clients truly want to live. From concept to completion, we create homes that combine comfort, aesthetics, and functionality.</p>
+      </div>
+      <div class="exp-card r d1">
+        <div class="exp-icon"><i class="fas fa-building"></i></div>
+        <h3>Commercial Architecture</h3>
+        <p>Office buildings, retail spaces, and mixed-use developments built to perform and inspire. We design commercial spaces that reflect brand identity while maximizing operational efficiency.</p>
+      </div>
+      <div class="exp-card r d2">
+        <div class="exp-icon"><i class="fas fa-palette"></i></div>
+        <h3>Interior Design</h3>
+        <p>Luxury interiors where comfort meets visual poetry. Every element is carefully curated to create cohesive, beautiful spaces that reflect the client's personality and lifestyle.</p>
+      </div>
+      <div class="exp-card r d1">
+        <div class="exp-icon"><i class="fas fa-city"></i></div>
+        <h3>Urban Planning</h3>
+        <p>Strategic city planning focused on sustainable, liveable communities. We design urban spaces that foster connection, promote well-being, and create vibrant neighborhoods for future generations.</p>
+      </div>
+      <div class="exp-card r d2">
+        <div class="exp-icon"><i class="fas fa-leaf"></i></div>
+        <h3>Landscape Design</h3>
+        <p>Seamless outdoor environments where natural beauty and architecture become one. From public parks to private gardens, we create outdoor spaces that enhance and inspire.</p>
+      </div>
+      <div class="exp-card r d3">
+        <div class="exp-icon"><i class="fas fa-cube"></i></div>
+        <h3>3D Visualization</h3>
+        <p>Advanced visualization techniques bringing architectural visions to life before construction. Our detailed renderings help clients understand and refine designs with precision and clarity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec" id="services">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-briefcase"></i> What We Offer</p>
+    <h2 class="sec-title">Comprehensive <em>Services</em></h2>
+    <p class="sec-subtitle">From initial concept to final delivery, we provide end-to-end architectural and design services tailored to your unique requirements and aspirations.</p>
+    
+    <div class="services-grid">
+      <div class="service-card r">
+        <div class="service-num">01</div>
+        <div class="service-icon"><i class="fas fa-drafting-compass"></i></div>
+        <div class="service-title">Architectural Design</div>
+        <div class="service-desc">Complete architectural design from master planning to detailed construction drawings. We integrate sustainable practices, modern technology, and timeless design principles.</div>
+      </div>
+
+      <div class="service-card r d1">
+        <div class="service-num">02</div>
+        <div class="service-icon"><i class="fas fa-swatchbook"></i></div>
+        <div class="service-title">Interior Design</div>
+        <div class="service-desc">Comprehensive interior design services covering space planning, material selection, furniture design, and project management for residential and commercial spaces.</div>
+      </div>
+
+      <div class="service-card r d2">
+        <div class="service-num">03</div>
+        <div class="service-icon"><i class="fas fa-map"></i></div>
+        <div class="service-title">Urban Design</div>
+        <div class="service-desc">Strategic urban planning creating liveable, sustainable communities. We design public spaces, streetscapes, and mixed-use developments with human-centric approach.</div>
+      </div>
+
+      <div class="service-card r d1">
+        <div class="service-num">04</div>
+        <div class="service-icon"><i class="fas fa-tree"></i></div>
+        <div class="service-title">Landscape Design</div>
+        <div class="service-desc">Environmental design creating beautiful outdoor spaces. From parks and gardens to terraces and plazas, we integrate nature with built environment seamlessly.</div>
+      </div>
+
+      <div class="service-card r d2">
+        <div class="service-num">05</div>
+        <div class="service-icon"><i class="fas fa-tasks"></i></div>
+        <div class="service-title">Project Management</div>
+        <div class="service-desc">End-to-end project management ensuring quality, schedule, and budget compliance. Our team coordinates all stakeholders for seamless project delivery.</div>
+      </div>
+
+      <div class="service-card r d3">
+        <div class="service-num">06</div>
+        <div class="service-icon"><i class="fas fa-vr-cardboard"></i></div>
+        <div class="service-title">3D Visualization</div>
+        <div class="service-desc">Photorealistic renderings and virtual tours bringing designs to life. Advanced visualization helps clients visualize projects before construction begins.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="sec" id="portfolio">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-images"></i> Our Work</p>
+    <h2 class="sec-title">Featured <em>Projects</em></h2>
+    <p class="sec-subtitle portfolio-intro">Explore our diverse portfolio of completed projects spanning residential, commercial, and urban design. Each project reflects our commitment to excellence and innovation.</p>
+
+    <div class="pgrid">
+      <div class="pi r d1">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=85&auto=format&fit=crop" alt="Meridian Tower">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-building"></i> Commercial Development</p>
+          <p class="pname">Meridian Corporate Tower</p>
+          <p class="pdesc">30-story mixed-use commercial development with retail and office spaces</p>
+        </div>
+      </div>
+
+      <div class="pi r d2">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85&auto=format&fit=crop" alt="Casa Serena">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-crown"></i> Luxury Residential</p>
+          <p class="pname">Casa Serena Villa</p>
+          <p class="pdesc">Contemporary luxury villa with smart home integration</p>
+        </div>
+      </div>
+
+      <div class="pi r d1">
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=800&q=85&auto=format&fit=crop" alt="Parkview">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-home"></i> Residential Complex</p>
+          <p class="pname">Parkview Residences</p>
+          <p class="pdesc">500+ unit residential complex with community facilities</p>
+        </div>
+      </div>
+
+      <div class="pi r d2">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=85&auto=format&fit=crop" alt="Loft Studio">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-palette"></i> Interior Design</p>
+          <p class="pname">The Loft Studio</p>
+          <p class="pdesc">Contemporary loft conversion with bespoke interior design</p>
+        </div>
+      </div>
+
+      <div class="pi r d3">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=85&auto=format&fit=crop" alt="Villa Aurum">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-gem"></i> Luxury Residence</p>
+          <p class="pname">Villa Aurum</p>
+          <p class="pdesc">Ultra-luxury villa featuring sustainable architecture</p>
+        </div>
+      </div>
+
+      <div class="pi r">
+        <img src="https://styluxconstruction.com/wp-content/uploads/2023/06/architectural_blueprint_of_a_luxurious_house_plan_featu_33be3418-7f14-4378-a232-a9b1f1ae0043.jpg" alt="Business Park">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-briefcase"></i> Commercial</p>
+          <p class="pname">Nexus Business Park</p>
+          <p class="pdesc">Modern office complex with eco-friendly features</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section class="sec" id="awards">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-trophy"></i> Recognition</p>
+    <h2 class="sec-title">Awards & <em>Accolades</em></h2>
+    <p class="sec-subtitle">Our work has been recognized by leading industry organizations and publications for innovation, design excellence, and sustainable practices.</p>
+
+    <div class="awards-grid">
+      <div class="award-item r">
+        <div class="award-icon"><i class="fas fa-medal"></i></div>
+        <div class="award-year">2023</div>
+        <div class="award-title">National Architecture Excellence Award</div>
+      </div>
+      <div class="award-item r d1">
+        <div class="award-icon"><i class="fas fa-leaf"></i></div>
+        <div class="award-year">2022</div>
+        <div class="award-title">Sustainable Design Award</div>
+      </div>
+      <div class="award-item r d2">
+        <div class="award-icon"><i class="fas fa-building"></i></div>
+        <div class="award-year">2021</div>
+        <div class="award-title">Best Commercial Project</div>
+      </div>
+      <div class="award-item r d3">
+        <div class="award-icon"><i class="fas fa-star"></i></div>
+        <div class="award-year">2020</div>
+        <div class="award-title">Innovation in Design</div>
+      </div>
+      <div class="award-item r">
+        <div class="award-icon"><i class="fas fa-heart"></i></div>
+        <div class="award-year">2019</div>
+        <div class="award-title">Client Choice Award</div>
+      </div>
+      <div class="award-item r d1">
+        <div class="award-icon"><i class="fas fa-city"></i></div>
+        <div class="award-year">2018</div>
+        <div class="award-title">Urban Design Excellence</div>
+      </div>
+      <div class="award-item r d2">
+        <div class="award-icon"><i class="fas fa-palette"></i></div>
+        <div class="award-year">2017</div>
+        <div class="award-title">Best Interior Design</div>
+      </div>
+      <div class="award-item r d3">
+        <div class="award-icon"><i class="fas fa-lightbulb"></i></div>
+        <div class="award-year">2016</div>
+        <div class="award-title">Emerging Architects Award</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec" id="process">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-cogs"></i> Our Methodology</p>
+    <h2 class="sec-title">Design <em>Process</em></h2>
+    <p class="sec-subtitle">We follow a structured, client-focused approach ensuring transparent communication and superior outcomes at every stage of the project.</p>
+
+    <div class="process-grid">
+      <div class="process-step r">
+        <div class="step-num">1</div>
+        <div class="step-name">Discovery</div>
+        <div class="step-desc">Understanding your vision, goals, budget, and timeline through comprehensive consultations</div>
+      </div>
+
+      <div class="process-step r d1">
+        <div class="step-num">2</div>
+        <div class="step-name">Concept</div>
+        <div class="step-desc">Developing innovative design concepts aligned with your requirements and aspirations</div>
+      </div>
+
+      <div class="process-step r d2">
+        <div class="step-num">3</div>
+        <div class="step-name">Design</div>
+        <div class="step-desc">Refining designs through iteration, visualization, and detailed documentation</div>
+      </div>
+
+      <div class="process-step r d3">
+        <div class="step-num">4</div>
+        <div class="step-name">Planning</div>
+        <div class="step-desc">Preparing detailed construction documents and securing necessary approvals</div>
+      </div>
+
+      <div class="process-step r">
+        <div class="step-num">5</div>
+        <div class="step-name">Execution</div>
+        <div class="step-desc">Project management oversight ensuring quality delivery and client satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec" id="stats">
+  <div class="wrap">
+    <p class="sec-label" style="justify-content:center;text-align:center"><i class="fas fa-chart-bar"></i> By The Numbers</p>
+    <h2 class="sec-title" style="text-align:center">Proven <em>Excellence</em></h2>
+    
+    <div class="stats-grid">
+      <div class="stat-card r">
+        <span class="stat-num" data-target="120"><i class="fas fa-building"></i></span>
+        <p class="stat-label">Projects Delivered</p>
+      </div>
+      <div class="stat-card r d1">
+        <span class="stat-num" data-target="95"><i class="fas fa-smile"></i></span>
+        <p class="stat-label">Satisfied Clients</p>
+      </div>
+      <div class="stat-card r d2">
+        <span class="stat-num" data-target="15"><i class="fas fa-award"></i></span>
+        <p class="stat-label">Years in Industry</p>
+      </div>
+      <div class="stat-card r d3">
+        <span class="stat-num" data-target="35"><i class="fas fa-users"></i></span>
+        <p class="stat-label">Team Members</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="testimonials">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-quote-left"></i> Client Feedback</p>
+    <h2 class="sec-title">What Clients <em>Say About Us</em></h2>
+    <p class="sec-subtitle">Our clients consistently praise our attention to detail, innovative design, and professional project management. Here are testimonials from satisfied clients.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card r">
+        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <p class="testimonial-text">"SG Architects transformed our vision into a stunning reality. Their professionalism, creativity, and commitment to excellence made the entire process seamless and enjoyable."</p>
+        <p class="testimonial-author"><i class="fas fa-user-circle"></i> Rajesh Kumar</p>
+        <p class="testimonial-role">Real Estate Developer</p>
+      </div>
+
+      <div class="testimonial-card r d1">
+        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <p class="testimonial-text">"The attention to detail and innovative design solutions were exceptional. They delivered our project on time and within budget, exceeding all expectations."</p>
+        <p class="testimonial-author"><i class="fas fa-user-circle"></i> Priya Sharma</p>
+        <p class="testimonial-role">Homeowner</p>
+      </div>
+
+      <div class="testimonial-card r d2">
+        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <p class="testimonial-text">"Working with SG Architects was a game-changer for our corporate space. The design perfectly reflects our brand and enhances employee satisfaction."</p>
+        <p class="testimonial-author"><i class="fas fa-user-circle"></i> Amit Patel</p>
+        <p class="testimonial-role">Corporate Director</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" id="faq">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-question-circle"></i> Common Questions</p>
+    <h2 class="sec-title">Frequently Asked <em>Questions</em></h2>
+    <p class="sec-subtitle faq-intro">Find answers to common questions about our design process, services, and project timelines.</p>
+
+    <div class="faq-grid">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> What is your design process?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Our design process includes five stages: Discovery (understanding requirements), Concept Development (creating innovative ideas), Design Refinement (detailed planning), Planning Documentation (technical drawings), and Project Execution (site management and completion).</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> How long does a typical project take?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Project timelines vary based on scope and complexity. A residential design typically takes 3-6 months, commercial projects 6-12 months, and construction administration varies with project size. We provide detailed timelines during initial consultations.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> Do you provide sustainable design solutions?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, sustainability is integral to our design philosophy. We incorporate green building practices, energy-efficient systems, sustainable materials, and environmentally responsible construction methods in all our projects.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> What is your fee structure?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>We offer flexible fee structures including fixed fees, percentage-based fees, and hourly rates depending on project type and client preference. We discuss and agree on fees transparently during initial consultations.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> Do you handle permits and approvals?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, we manage the entire approval process including design consultations with authorities, permit applications, and compliance with local building codes and regulations.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> Can you work with existing structures?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely. We specialize in renovations, adaptations, and expansions of existing buildings, bringing new life to structures while preserving their character and value.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> How do you handle budget constraints?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>We work closely with clients to understand budget parameters and design accordingly. Our team prioritizes spending on elements that provide maximum value and impact while maintaining design integrity.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> What areas do you serve?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>We serve clients across India and internationally. Our team has experience working on projects in diverse geographic locations and cultural contexts, ensuring designs are contextually appropriate.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-phone"></i> Let's Connect</p>
+    <h2 class="sec-title">Start Your <em>Project Today</em></h2>
+    <p class="sec-subtitle">Ready to transform your space? We'd love to hear about your project. Contact us and let's explore how we can bring your architectural vision to life.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info r">
+        <p>We're ready to discuss your project, answer your questions, and provide comprehensive architectural solutions tailored to your unique needs and aspirations.</p>
+
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-text">
+              <strong>Phone</strong>
+              <span>+91 94119 60694<br><small>Mon–Sat, 9am–7pm IST</small></span>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-text">
+              <strong>Email</strong>
+              <span>sparshguptaarchitects@gmail.com<br><small>Response within 24 hours</small></span>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-text">
+              <strong>Office</strong>
+              <span>Bulandshahr Road<br><small>Uttar Pradesh, India – 203001</small></span>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="contact-text">
+              <strong>WhatsApp</strong>
+              <span>Quick messaging for project inquiries</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form r d1">
+        <form id="contactForm">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user"></i> Full Name *</label>
+            <input type="text" class="form-input" id="cName" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-envelope"></i> Email *</label>
+              <input type="email" class="form-input" id="cEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-phone"></i> Phone *</label>
+              <input type="tel" class="form-input" id="cPhone" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-cube"></i> Project Type *</label>
+            <select class="form-input" id="cType" required>
+              <option value="">Select Project Type</option>
+              <option value="Residential Design">Residential Design</option>
+              <option value="Commercial Design">Commercial Design</option>
+              <option value="Interior Design">Interior Design</option>
+              <option value="Urban Planning">Urban Planning</option>
+              <option value="Renovation/Adaptation">Renovation/Adaptation</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-comment"></i> Message *</label>
+            <textarea class="form-input" id="cMsg" rows="4" placeholder="Tell us about your project..." required></textarea>
+          </div>
+
+          <button type="submit" class="btng"><i class="fas fa-paper-plane"></i> Send Inquiry</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h3><i class="fas fa-building"></i> SG ARCHITECTS</h3>
+      <p>Award-winning architecture studio creating timeless designs that transform spaces and elevate human experience through innovative design and meticulous craftsmanship.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-sitemap"></i> Quick Links</h3>
+      <a href="about.html"><i class="fas fa-angle-right"></i> About Us</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-angle-right"></i> Portfolio</a>
+      <a href="#process"><i class="fas fa-angle-right"></i> Our Process</a>
+      <a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-briefcase"></i> Services</h3>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Architectural Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Interior Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Urban Planning</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Landscape Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Project Management</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-phone"></i> Contact Info</h3>
+      <a href="tel:+919411960694"><i class="fas fa-phone"></i> +91 94119 60694</a>
+      <a href="mailto:sparshguptaarchitects@gmail.com"><i class="fas fa-envelope"></i> Email Us</a>
+      <a href="#"><i class="fas fa-map-marker-alt"></i> Bulandshahr Road, UP</a>
+      <a href="https://wa.me/919411960694"><i class="fab fa-whatsapp"></i> WhatsApp Chat</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p><i class="fas fa-copyright"></i> 2026 SG ARCHITECTS. All Rights Reserved. Design Excellence Since 2009</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919411960694" class="wafab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" title="Chat with us on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- SCRIPTS -->
+<script>
+/* CURSOR */
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+});
+(function tick(){
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a, button, .form-input, select').forEach(el => {
+  el.addEventListener('mouseenter', () => { cur.style.width='6px'; cur.style.height='6px'; ring.style.width='56px'; ring.style.height='56px'; ring.style.borderColor='rgba(0,0,0,.4)'; });
+  el.addEventListener('mouseleave', () => { cur.style.width='10px'; cur.style.height='10px'; ring.style.width='40px'; ring.style.height='40px'; ring.style.borderColor='rgba(0,0,0,.2)'; });
+});
+
+/* NAV */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scroll', window.scrollY > 50);
+}, { passive: true });
+
+/* MOBILE DRAWER */
+const ham = document.getElementById('ham');
+const drawer = document.getElementById('drawer');
+const ov = document.getElementById('ov');
+const toggleDrawer = open => {
+  ham.classList.toggle('open', open);
+  drawer.classList.toggle('open', open);
+  ov.classList.toggle('show', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+};
+ham.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
+ov.addEventListener('click', () => toggleDrawer(false));
+document.querySelectorAll('.dl').forEach(a => a.addEventListener('click', () => toggleDrawer(false)));
+
+/* SMOOTH SCROLL */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+/* REVEAL */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); ro.unobserve(e.target); } });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+
+/* COUNTERS */
+const co = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const el = e.target, tgt = +el.dataset.target || 0, step = Math.ceil(tgt / 50);
+    let v = 0;
+    const t = setInterval(() => { v = Math.min(v + step, tgt); el.textContent = v; if (v >= tgt) clearInterval(t); }, 25);
+    co.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(c => co.observe(c));
+
+/* FAQ */
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    item.classList.toggle('open');
+  });
+});
+
+/* FORM */
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const n  = document.getElementById('cName').value.trim();
+  const em = document.getElementById('cEmail').value.trim();
+  const p  = document.getElementById('cPhone').value.trim();
+  const t  = document.getElementById('cType').value || 'General Inquiry';
+  const m  = document.getElementById('cMsg').value.trim();
+  const txt = encodeURIComponent(`*New Project Inquiry — SG Architects*\n\n*Name:* ${n}\n*Email:* ${em}\n*Phone:* ${p}\n*Project Type:* ${t}\n*Message:* ${m}`);
+  window.open(`https://wa.me/919411960694?text=${txt}`, '_blank');
+  e.target.reset();
+});
+
+/* THREE.JS */
+(function () {
+  const canvas = document.getElementById('hc');
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setSize(innerWidth, innerHeight);
+
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 100);
+  cam.position.z = 7;
+
+  const tk = new THREE.Mesh(
+    new THREE.TorusKnotGeometry(2.4, .55, 130, 18),
+    new THREE.MeshBasicMaterial({ color: 0x000000, wireframe: true, transparent: true, opacity: .07 })
+  );
+  scene.add(tk);
+
+  const core = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(1, 2),
+    new THREE.MeshBasicMaterial({ color: 0x4b5563, wireframe: true, transparent: true, opacity: .04 })
+  );
+  scene.add(core);
+
+  const pa = new Float32Array(300 * 3);
+  for (let i = 0; i < pa.length; i++) pa[i] = (Math.random() - .5) * 22;
+  const pg = new THREE.BufferGeometry();
+  pg.setAttribute('position', new THREE.BufferAttribute(pa, 3));
+  scene.add(new THREE.Points(pg, new THREE.PointsMaterial({ color: 0x000000, size: .02, transparent: true, opacity: .25 })));
+
+  let dmx = 0, dmy = 0;
+  window.addEventListener('mousemove', e => { dmx = (e.clientX / innerWidth - .5) * .55; dmy = (e.clientY / innerHeight - .5) * .55; });
+  window.addEventListener('resize', () => {
+    cam.aspect = innerWidth / innerHeight;
+    cam.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
+
+  (function loop() {
+    requestAnimationFrame(loop);
+    tk.rotation.x += .0012; tk.rotation.y += .0016;
+    core.rotation.y += .0024; core.rotation.x += .0006;
+    cam.position.x += (dmx - cam.position.x) * .04;
+    cam.position.y += (-dmy - cam.position.y) * .04;
+    renderer.render(scene, cam);
+  })();
+})();
+
+/* GSAP */
+if (typeof gsap !== 'undefined') {
+  document.querySelectorAll('.btng, .btno, .nav-cta').forEach(b => {
+    b.addEventListener('mousemove', e => {
+      const r = b.getBoundingClientRect();
+      gsap.to(b, { x: (e.clientX - r.left - r.width/2) * .2, y: (e.clientY - r.top - r.height/2) * .2, duration: .3 });
+    });
+    b.addEventListener('mouseleave', () => gsap.to(b, { x: 0, y: 0, duration: .5, ease: 'elastic.out(1,.5)' }));
+  });
+}
+</script>
+</body>
+</html>

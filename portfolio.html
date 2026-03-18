@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+<meta name="description" content="Portfolio - Explore our diverse architectural projects and design work."/>
+<title>Portfolio | SG Architects</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="index.html" class="logo">SG ARCHITECTS<span class="logo-sub">Studio</span></a>
+    <div class="nav-links">
+      <a href="index.html"><i class="fas fa-briefcase"></i> Home</a>
+      <a href="about.html"><i class="fas fa-briefcase"></i> About</a>
+      <a href="services.html"><i class="fas fa-cube"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-images"></i> Portfolio</a>
+      <a href="contact.html" class="nav-cta"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <button class="ham" id="ham" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="ov"></div>
+<div id="drawer">
+  <a href="about.html" class="dl"><i class="fas fa-briefcase"></i> About</a>
+  <a href="services.html" class="dl"><i class="fas fa-cube"></i> Services</a>
+  <a href="portfolio.html" class="dl"><i class="fas fa-images"></i> Portfolio</a>
+  <a href="contact.html" class="dl"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" style="position:relative;height:400px;display:flex;align-items:center;justify-content:center;padding-top:var(--nav-h);overflow:hidden;background:linear-gradient(135deg,var(--light-bg) 0%,var(--gray-100) 100%)">
+  <canvas id="hc"></canvas>
+  <div class="hero-wrap" style="position:relative;z-index:3">
+    <h1 class="h1" style="margin-bottom:0">Our Portfolio</h1>
+  </div>
+</section>
+
+<!-- PORTFOLIO GRID -->
+<section class="sec" id="portfolio">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-images"></i> Our Work</p>
+    <h2 class="sec-title">Featured <em>Projects</em></h2>
+    <p class="sec-subtitle portfolio-intro">Explore our diverse portfolio of completed projects spanning residential, commercial, and urban design. Each project reflects our commitment to excellence and innovation.</p>
+
+    <div class="pgrid">
+      <div class="pi r d1">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=85&auto=format&fit=crop" alt="Meridian Tower">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-building"></i> Commercial Development</p>
+          <p class="pname">Meridian Corporate Tower</p>
+          <p class="pdesc">30-story mixed-use commercial development with retail and office spaces</p>
+        </div>
+      </div>
+
+      <div class="pi r d2">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=85&auto=format&fit=crop" alt="Casa Serena">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-crown"></i> Luxury Residential</p>
+          <p class="pname">Casa Serena Villa</p>
+          <p class="pdesc">Contemporary luxury villa with smart home integration</p>
+        </div>
+      </div>
+
+      <div class="pi r d1">
+        <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?w=800&q=85&auto=format&fit=crop" alt="Parkview">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-home"></i> Residential Complex</p>
+          <p class="pname">Parkview Residences</p>
+          <p class="pdesc">500+ unit residential complex with community facilities</p>
+        </div>
+      </div>
+
+      <div class="pi r d2">
+        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=85&auto=format&fit=crop" alt="Loft Studio">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-palette"></i> Interior Design</p>
+          <p class="pname">The Loft Studio</p>
+          <p class="pdesc">Contemporary loft conversion with bespoke interior design</p>
+        </div>
+      </div>
+
+      <div class="pi r d3">
+        <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=85&auto=format&fit=crop" alt="Villa Aurum">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-gem"></i> Luxury Residence</p>
+          <p class="pname">Villa Aurum</p>
+          <p class="pdesc">Ultra-luxury villa featuring sustainable architecture</p>
+        </div>
+      </div>
+
+      <div class="pi r">
+        <img src="https://styluxconstruction.com/wp-content/uploads/2023/06/architectural_blueprint_of_a_luxurious_house_plan_featu_33be3418-7f14-4378-a232-a9b1f1ae0043.jpg" alt="Business Park">
+        <div class="pov">
+          <p class="ptag"><i class="fas fa-briefcase"></i> Commercial</p>
+          <p class="pname">Nexus Business Park</p>
+          <p class="pdesc">Modern office complex with eco-friendly features</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS SECTION -->
+<section class="sec" style="background:var(--gray-100)">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-trophy"></i> Recognition</p>
+    <h2 class="sec-title">Awards & <em>Accolades</em></h2>
+    <p class="sec-subtitle">Our work has been recognized by leading industry organizations for innovation, design excellence, and sustainable practices.</p>
+
+    <div class="awards-grid">
+      <div class="award-item r">
+        <div class="award-icon"><i class="fas fa-medal"></i></div>
+        <div class="award-year">2023</div>
+        <div class="award-title">National Architecture Excellence Award</div>
+      </div>
+      <div class="award-item r d1">
+        <div class="award-icon"><i class="fas fa-leaf"></i></div>
+        <div class="award-year">2022</div>
+        <div class="award-title">Sustainable Design Award</div>
+      </div>
+      <div class="award-item r d2">
+        <div class="award-icon"><i class="fas fa-building"></i></div>
+        <div class="award-year">2021</div>
+        <div class="award-title">Best Commercial Project</div>
+      </div>
+      <div class="award-item r d3">
+        <div class="award-icon"><i class="fas fa-star"></i></div>
+        <div class="award-year">2020</div>
+        <div class="award-title">Innovation in Design</div>
+      </div>
+      <div class="award-item r">
+        <div class="award-icon"><i class="fas fa-heart"></i></div>
+        <div class="award-year">2019</div>
+        <div class="award-title">Client Choice Award</div>
+      </div>
+      <div class="award-item r d1">
+        <div class="award-icon"><i class="fas fa-city"></i></div>
+        <div class="award-year">2018</div>
+        <div class="award-title">Urban Design Excellence</div>
+      </div>
+      <div class="award-item r d2">
+        <div class="award-icon"><i class="fas fa-palette"></i></div>
+        <div class="award-year">2017</div>
+        <div class="award-title">Best Interior Design</div>
+      </div>
+      <div class="award-item r d3">
+        <div class="award-icon"><i class="fas fa-lightbulb"></i></div>
+        <div class="award-year">2016</div>
+        <div class="award-title">Emerging Architects Award</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT CATEGORIES -->
+<section class="sec">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-filter"></i> Project Types</p>
+    <h2 class="sec-title">Project <em>Categories</em></h2>
+    <p class="sec-subtitle">We bring expertise across diverse project types and scales.</p>
+    
+    <div class="categories-grid">
+      <div class="category-card r">
+        <div class="category-icon"><i class="fas fa-home"></i></div>
+        <h3>Residential</h3>
+        <p>From luxury villas to apartment complexes, we create homes that blend comfort with stunning aesthetics.</p>
+        <span class="project-count">25+ Projects</span>
+      </div>
+
+      <div class="category-card r d1">
+        <div class="category-icon"><i class="fas fa-building"></i></div>
+        <h3>Commercial</h3>
+        <p>Office buildings, retail spaces, and corporate environments designed for performance and inspiration.</p>
+        <span class="project-count">35+ Projects</span>
+      </div>
+
+      <div class="category-card r d2">
+        <div class="category-icon"><i class="fas fa-city"></i></div>
+        <h3>Urban Development</h3>
+        <p>Mixed-use developments and urban spaces fostering community connection and sustainable growth.</p>
+        <span class="project-count">20+ Projects</span>
+      </div>
+
+      <div class="category-card r d1">
+        <div class="category-icon"><i class="fas fa-palette"></i></div>
+        <h3>Interior Design</h3>
+        <p>Luxury interiors and space design that reflect personality and enhance user experience.</p>
+        <span class="project-count">30+ Projects</span>
+      </div>
+
+      <div class="category-card r d2">
+        <div class="category-icon"><i class="fas fa-leaf"></i></div>
+        <h3>Sustainable Design</h3>
+        <p>Eco-friendly projects incorporating green building practices and sustainable materials throughout.</p>
+        <span class="project-count">18+ Projects</span>
+      </div>
+
+      <div class="category-card r d3">
+        <div class="category-icon"><i class="fas fa-hammer"></i></div>
+        <h3>Renovations</h3>
+        <p>Adaptive reuse and renovation projects bringing new life to existing structures.</p>
+        <span class="project-count">22+ Projects</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="sec" style="background:var(--gray-100)">
+  <div class="wrap">
+    <p class="sec-label" style="justify-content:center;text-align:center"><i class="fas fa-chart-bar"></i> By The Numbers</p>
+    <h2 class="sec-title" style="text-align:center">Portfolio <em>Impact</em></h2>
+    
+    <div class="stats-grid">
+      <div class="stat-card r">
+        <span class="stat-num" data-target="120"><i class="fas fa-building"></i></span>
+        <p class="stat-label">Projects Delivered</p>
+      </div>
+      <div class="stat-card r d1">
+        <span class="stat-num" data-target="95"><i class="fas fa-smile"></i></span>
+        <p class="stat-label">Satisfied Clients</p>
+      </div>
+      <div class="stat-card r d2">
+        <span class="stat-num" data-target="8"><i class="fas fa-award"></i></span>
+        <p class="stat-label">Major Awards</p>
+      </div>
+      <div class="stat-card r d3">
+        <span class="stat-num" data-target="500000"><i class="fas fa-ruler"></i></span>
+        <p class="stat-label">Sq Ft Designed</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec cta-section">
+  <div class="wrap">
+    <div class="cta-content">
+      <h2 style="font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--light-bg);margin-bottom:1rem">Ready to Start Your Project?</h2>
+      <p style="font-size:clamp(0.9rem,2vw,1.05rem);color:rgba(255,255,255,.9);max-width:600px;margin-bottom:2rem">Inspired by our work? Let's discuss how we can create something exceptional for you.</p>
+      <a href="contact.html" class="btng"><i class="fas fa-envelope"></i> Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h3><i class="fas fa-building"></i> SG ARCHITECTS</h3>
+      <p>Award-winning architecture studio creating timeless designs that transform spaces and elevate human experience.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-sitemap"></i> Quick Links</h3>
+      <a href="index.html"><i class="fas fa-angle-right"></i> Home</a>
+      <a href="about.html"><i class="fas fa-angle-right"></i> About Us</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-angle-right"></i> Portfolio</a>
+      <a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-briefcase"></i> Services</h3>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Architectural Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Interior Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Urban Planning</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Project Management</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-phone"></i> Contact Info</h3>
+      <a href="tel:+919411960694"><i class="fas fa-phone"></i> +91 94119 60694</a>
+      <a href="mailto:sparshguptaarchitects@gmail.com"><i class="fas fa-envelope"></i> Email Us</a>
+      <a href="https://wa.me/919411960694"><i class="fab fa-whatsapp"></i> WhatsApp Chat</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p><i class="fas fa-copyright"></i> 2026 SG ARCHITECTS. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919411960694" class="wafab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+<script src="portfolio-3d.js"></script>
+</body>
+</html>

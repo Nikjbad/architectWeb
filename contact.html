@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+<meta name="description" content="Contact SG Architects - Get in touch with our architecture studio for your project."/>
+<title>Contact Us | SG Architects</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="index.html" class="logo">SG ARCHITECTS<span class="logo-sub">Studio</span></a>
+    <div class="nav-links">
+      <a href="index.html"><i class="fas fa-briefcase"></i> Home</a>
+      <a href="about.html"><i class="fas fa-briefcase"></i> About</a>
+      <a href="services.html"><i class="fas fa-cube"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-images"></i> Portfolio</a>
+      <a href="contact.html" class="nav-cta"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <button class="ham" id="ham" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="ov"></div>
+<div id="drawer">
+  <a href="about.html" class="dl"><i class="fas fa-briefcase"></i> About</a>
+  <a href="services.html" class="dl"><i class="fas fa-cube"></i> Services</a>
+  <a href="portfolio.html" class="dl"><i class="fas fa-images"></i> Portfolio</a>
+  <a href="contact.html" class="dl"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" style="position:relative;height:400px;display:flex;align-items:center;justify-content:center;padding-top:var(--nav-h);overflow:hidden;background:linear-gradient(135deg,var(--light-bg) 0%,var(--gray-100) 100%)">
+  <canvas id="hc"></canvas>
+  <div class="hero-wrap" style="position:relative;z-index:3">
+    <h1 class="h1" style="margin-bottom:0">Let's Connect</h1>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section class="sec" id="contact">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-phone"></i> Get In Touch</p>
+    <h2 class="sec-title">Start Your <em>Project Today</em></h2>
+    <p class="sec-subtitle">Ready to transform your space? We'd love to hear about your project. Contact us and let's explore how we can bring your architectural vision to life.</p>
+
+    <div class="contact-grid">
+      <div class="contact-info r">
+        <p>We're here to discuss your project, answer your questions, and provide comprehensive architectural solutions tailored to your unique needs and aspirations. Reach out through any of these channels.</p>
+
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-text">
+              <strong>Phone</strong>
+              <span>+91 94119 60694<br><small>Mon–Sat, 9am–7pm IST</small></span>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-text">
+              <strong>Email</strong>
+              <span>sparshguptaarchitects@gmail.com<br><small>Response within 24 hours</small></span>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-text">
+              <strong>Office</strong>
+              <span>Bulandshahr Road<br><small>Uttar Pradesh, India – 203001</small></span>
+            </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="contact-text">
+              <strong>WhatsApp</strong>
+              <span><a href="https://wa.me/919411960694" style="color:var(--success)">Quick messaging for project inquiries</a></span>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:3rem;padding:2rem;background:var(--gray-100);border-radius:var(--radius);border-left:4px solid var(--primary)">
+          <h4 style="color:var(--primary);margin-bottom:1rem;font-weight:600"><i class="fas fa-lightbulb"></i> Quick Inquiry</h4>
+          <p style="font-size:.9rem;color:var(--gray-600)">For quick questions or to schedule a consultation, click the WhatsApp button at the bottom right of the screen and we'll get back to you immediately.</p>
+        </div>
+      </div>
+
+      <div class="contact-form r d1">
+        <form id="contactForm">
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-user"></i> Full Name *</label>
+            <input type="text" class="form-input" id="cName" placeholder="Enter your full name" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-envelope"></i> Email *</label>
+              <input type="email" class="form-input" id="cEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label"><i class="fas fa-phone"></i> Phone *</label>
+              <input type="tel" class="form-input" id="cPhone" placeholder="+91 XXXXX XXXXX" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-cube"></i> Project Type *</label>
+            <select class="form-input" id="cType" required>
+              <option value="">Select Project Type</option>
+              <option value="Residential Design">Residential Design</option>
+              <option value="Commercial Design">Commercial Design</option>
+              <option value="Interior Design">Interior Design</option>
+              <option value="Urban Planning">Urban Planning</option>
+              <option value="Renovation/Adaptation">Renovation/Adaptation</option>
+              <option value="Landscape Design">Landscape Design</option>
+              <option value="3D Visualization">3D Visualization</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-calendar"></i> Project Timeline</label>
+            <select class="form-input" id="cTimeline">
+              <option value="">Select Timeline</option>
+              <option value="Immediate">Immediate</option>
+              <option value="1-3 months">1-3 months</option>
+              <option value="3-6 months">3-6 months</option>
+              <option value="6-12 months">6-12 months</option>
+              <option value="12+ months">12+ months</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label"><i class="fas fa-comment"></i> Tell Us About Your Project *</label>
+            <textarea class="form-input" id="cMsg" rows="5" placeholder="Describe your project, vision, and any specific requirements..." required></textarea>
+          </div>
+
+          <button type="submit" class="btng" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Send Inquiry via WhatsApp</button>
+          <p style="font-size:.75rem;color:var(--gray-600);text-align:center;margin-top:1rem">We'll respond to your inquiry within 24 hours</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="sec" style="background:var(--gray-100)">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-question-circle"></i> Common Questions</p>
+    <h2 class="sec-title">Contact <em>FAQs</em></h2>
+
+    <div class="faq-grid" style="max-width:900px;margin:0 auto">
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> How quickly can you respond to inquiries?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>We typically respond to inquiries within 24 hours during business days. For urgent matters, use WhatsApp for immediate response. Contact us Monday-Saturday, 9am-7pm IST.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> Do you offer free consultations?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, we offer initial consultations to understand your project requirements, vision, and goals. This helps us provide accurate proposals and timelines for your specific needs.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> Can you work with projects outside India?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, we have experience working on international projects. We can provide virtual consultations and coordinate across different time zones for projects globally.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> What information should I provide for the inquiry?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Please provide: project type, location, approximate budget, timeline, project description, and any specific requirements or preferences. This helps us prepare a comprehensive proposal.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> Do you provide project estimates?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, after understanding your requirements, we provide detailed project estimates including timeline, cost breakdown, and deliverables. Estimates are provided based on consultation.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span><i class="fas fa-caret-right"></i> How do I know my project is in good hands?</span>
+          <span class="faq-toggle">▼</span>
+        </div>
+        <div class="faq-answer">
+          <p>With 15+ years of experience, 120+ completed projects, 8 major awards, and 95% client satisfaction, we have a proven track record of delivering exceptional results.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h3><i class="fas fa-building"></i> SG ARCHITECTS</h3>
+      <p>Award-winning architecture studio creating timeless designs that transform spaces and elevate human experience.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-sitemap"></i> Quick Links</h3>
+      <a href="index.html"><i class="fas fa-angle-right"></i> Home</a>
+      <a href="about.html"><i class="fas fa-angle-right"></i> About Us</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-angle-right"></i> Portfolio</a>
+      <a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-briefcase"></i> Services</h3>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Architectural Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Interior Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Urban Planning</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Project Management</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-phone"></i> Contact Info</h3>
+      <a href="tel:+919411960694"><i class="fas fa-phone"></i> +91 94119 60694</a>
+      <a href="mailto:sparshguptaarchitects@gmail.com"><i class="fas fa-envelope"></i> Email Us</a>
+      <a href="https://wa.me/919411960694"><i class="fab fa-whatsapp"></i> WhatsApp Chat</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p><i class="fas fa-copyright"></i> 2026 SG ARCHITECTS. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919411960694" class="wafab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+<script src="contact-3d.js"></script>
+</body>
+</html>

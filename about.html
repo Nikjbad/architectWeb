@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+<meta name="description" content="About SG Architects - Learn about our team, philosophy, and approach to architectural design."/>
+<title>About Us | SG Architects</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="index.html" class="logo">SG ARCHITECTS<span class="logo-sub">Studio</span></a>
+    <div class="nav-links">
+       <a href="index.html"><i class="fas fa-briefcase"></i> Home</a>
+      <a href="about.html"><i class="fas fa-briefcase"></i> About</a>
+      <a href="services.html"><i class="fas fa-cube"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-images"></i> Portfolio</a>
+      <a href="contact.html" class="nav-cta"><i class="fas fa-envelope"></i> Contact</a>
+    </div>
+    <button class="ham" id="ham" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div id="ov"></div>
+<div id="drawer">
+  <a href="about.html" class="dl"><i class="fas fa-briefcase"></i> About</a>
+  <a href="services.html" class="dl"><i class="fas fa-cube"></i> Services</a>
+  <a href="portfolio.html" class="dl"><i class="fas fa-images"></i> Portfolio</a>
+  <a href="contact.html" class="dl"><i class="fas fa-envelope"></i> Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero" style="position:relative;height:400px;display:flex;align-items:center;justify-content:center;padding-top:var(--nav-h);overflow:hidden;background:linear-gradient(135deg,var(--light-bg) 0%,var(--gray-100) 100%)">
+  <canvas id="hc"></canvas>
+  <div class="hero-wrap" style="position:relative;z-index:3">
+    <h1 class="h1" style="margin-bottom:0">About SG Architects</h1>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-img r">
+        <img src="https://assets.architecturaldesigns.com/plan_assets/344711395/original/81776AB_Photo-01_1668805041.jpg" alt="SG Architects Studio">
+        <div class="stats-badge">
+          <div class="n">15+</div>
+          <div class="l">Years of<br>Excellence</div>
+        </div>
+      </div>
+
+      <div class="r d1">
+        <p class="sec-label"><i class="fas fa-book"></i> Our Story</p>
+        <h2 class="sec-title">Award-Winning Architecture <em>For Modern Living</em></h2>
+        <div class="divbar"></div>
+        
+        <div class="about-text">
+          <h3><i class="fas fa-lightbulb"></i> Designing with Purpose</h3>
+          <p>SG Architects is a multidisciplinary design firm founded by Architect Sparsh Gupta in 2009. We are dedicated to transforming architectural visions into extraordinary experiences. From intimate residential projects to landmark commercial developments, every project embodies our commitment to excellence, sustainability, and innovation.</p>
+          
+          <h3><i class="fas fa-compass"></i> Our Philosophy</h3>
+          <p>We believe architecture is a dialogue between structure and soul—a conversation that should inspire for generations to come. Each project is approached as an opportunity to create spaces that not only meet functional requirements but also elevate the quality of life.</p>
+          
+          <h3><i class="fas fa-heart"></i> Our Values</h3>
+          <ul>
+            <li>Design Excellence & Innovation</li>
+            <li>Sustainable & Responsible Building</li>
+            <li>Client-Centric Approach</li>
+            <li>Attention to Detail</li>
+            <li>Timely Delivery & Quality</li>
+            <li>Long-term Client Relationships</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE SECTION -->
+<section class="sec" id="expertise" style="background:var(--gray-100)">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-gem"></i> Our Specialization</p>
+    <h2 class="sec-title">Areas of <em>Expertise</em></h2>
+    <p class="sec-subtitle">We specialize in creating transformative architectural solutions across multiple disciplines.</p>
+    
+    <div class="expertise-grid">
+      <div class="exp-card r">
+        <div class="exp-icon"><i class="fas fa-home"></i></div>
+        <h3>Residential Design</h3>
+        <p>Luxury villas, apartments, and residential complexes designed around how clients truly want to live. From concept to completion, we create homes that combine comfort, aesthetics, and functionality.</p>
+      </div>
+      <div class="exp-card r d1">
+        <div class="exp-icon"><i class="fas fa-building"></i></div>
+        <h3>Commercial Architecture</h3>
+        <p>Office buildings, retail spaces, and mixed-use developments built to perform and inspire. We design commercial spaces that reflect brand identity while maximizing operational efficiency.</p>
+      </div>
+      <div class="exp-card r d2">
+        <div class="exp-icon"><i class="fas fa-palette"></i></div>
+        <h3>Interior Design</h3>
+        <p>Luxury interiors where comfort meets visual poetry. Every element is carefully curated to create cohesive, beautiful spaces that reflect the client's personality and lifestyle.</p>
+      </div>
+      <div class="exp-card r d1">
+        <div class="exp-icon"><i class="fas fa-city"></i></div>
+        <h3>Urban Planning</h3>
+        <p>Strategic city planning focused on sustainable, liveable communities. We design urban spaces that foster connection, promote well-being, and create vibrant neighborhoods.</p>
+      </div>
+      <div class="exp-card r d2">
+        <div class="exp-icon"><i class="fas fa-leaf"></i></div>
+        <h3>Landscape Design</h3>
+        <p>Seamless outdoor environments where natural beauty and architecture become one. From public parks to private gardens, we create outdoor spaces that enhance and inspire.</p>
+      </div>
+      <div class="exp-card r d3">
+        <div class="exp-icon"><i class="fas fa-cube"></i></div>
+        <h3>3D Visualization</h3>
+        <p>Advanced visualization techniques bringing architectural visions to life before construction. Our detailed renderings help clients understand and refine designs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="sec">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-users"></i> Our Team</p>
+    <h2 class="sec-title">Meet The <em>Professionals</em></h2>
+    <p class="sec-subtitle">Our multidisciplinary team brings diverse expertise, creativity, and passion to every project.</p>
+    
+    <div class="team-grid">
+      <div class="team-card r">
+        <div class="team-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=85&auto=format&fit=crop" alt="Sparsh Gupta">
+        </div>
+        <h3>Sparsh Gupta</h3>
+        <p class="team-role">Founder & Lead Architect</p>
+        <p class="team-bio">Visionary architect with 15+ years of experience in transforming spaces. Sparsh leads the studio with passion for design excellence and sustainable architecture.</p>
+      </div>
+
+      <div class="team-card r d1">
+        <div class="team-img">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=85&auto=format&fit=crop" alt="Design Head">
+        </div>
+        <h3>Priya Sharma</h3>
+        <p class="team-role">Design Director</p>
+        <p class="team-bio">Creative visionary specializing in residential and commercial design. Priya brings innovative thinking and meticulous attention to detail to every project.</p>
+      </div>
+
+      <div class="team-card r d2">
+        <div class="team-img">
+          <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=85&auto=format&fit=crop" alt="Project Manager">
+        </div>
+        <h3>Rajesh Kapoor</h3>
+        <p class="team-role">Project Manager</p>
+        <p class="team-bio">Seasoned project manager ensuring seamless execution. Rajesh coordinates all stakeholders to deliver projects on time and within budget.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec" id="testimonials" style="background:var(--gray-100)">
+  <div class="wrap">
+    <p class="sec-label"><i class="fas fa-quote-left"></i> Client Feedback</p>
+    <h2 class="sec-title">What Clients <em>Say About Us</em></h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card r">
+        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <p class="testimonial-text">"SG Architects transformed our vision into a stunning reality. Their professionalism, creativity, and commitment to excellence made the entire process seamless and enjoyable."</p>
+        <p class="testimonial-author"><i class="fas fa-user-circle"></i> Rajesh Kumar</p>
+        <p class="testimonial-role">Real Estate Developer</p>
+      </div>
+
+      <div class="testimonial-card r d1">
+        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <p class="testimonial-text">"The attention to detail and innovative design solutions were exceptional. They delivered our project on time and within budget, exceeding all expectations."</p>
+        <p class="testimonial-author"><i class="fas fa-user-circle"></i> Priya Sharma</p>
+        <p class="testimonial-role">Homeowner</p>
+      </div>
+
+      <div class="testimonial-card r d2">
+        <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+        <p class="testimonial-text">"Working with SG Architects was transformative. The design perfectly reflects our brand and has significantly enhanced our workspace and team satisfaction."</p>
+        <p class="testimonial-author"><i class="fas fa-user-circle"></i> Amit Patel</p>
+        <p class="testimonial-role">Corporate Director</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec cta-section">
+  <div class="wrap">
+    <div class="cta-content">
+      <h2 style="font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:700;color:var(--light-bg);margin-bottom:1rem">Let's Work Together</h2>
+      <p style="font-size:clamp(0.9rem,2vw,1.05rem);color:rgba(255,255,255,.9);max-width:600px;margin-bottom:2rem">Ready to bring your architectural vision to life? Contact us to discuss your project.</p>
+      <a href="contact.html" class="btng"><i class="fas fa-envelope"></i> Start Your Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-col">
+      <h3><i class="fas fa-building"></i> SG ARCHITECTS</h3>
+      <p>Award-winning architecture studio creating timeless designs that transform spaces and elevate human experience.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-sitemap"></i> Quick Links</h3>
+      <a href="index.html"><i class="fas fa-angle-right"></i> Home</a>
+      <a href="about.html"><i class="fas fa-angle-right"></i> About Us</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Services</a>
+      <a href="portfolio.html"><i class="fas fa-angle-right"></i> Portfolio</a>
+      <a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-briefcase"></i> Services</h3>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Architectural Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Interior Design</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Urban Planning</a>
+      <a href="services.html"><i class="fas fa-angle-right"></i> Project Management</a>
+    </div>
+
+    <div class="footer-col">
+      <h3><i class="fas fa-phone"></i> Contact Info</h3>
+      <a href="tel:+919411960694"><i class="fas fa-phone"></i> +91 94119 60694</a>
+      <a href="mailto:sparshguptaarchitects@gmail.com"><i class="fas fa-envelope"></i> Email Us</a>
+      <a href="https://wa.me/919411960694"><i class="fab fa-whatsapp"></i> WhatsApp Chat</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p><i class="fas fa-copyright"></i> 2026 SG ARCHITECTS. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP FAB -->
+<a href="https://wa.me/919411960694" class="wafab" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script src="script.js"></script>
+<script src="about-3d.js"></script>
+</body>
+</html>
